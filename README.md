@@ -14,7 +14,7 @@ These dataset provide tile-based images of navigation areas paired with shortest
 
 The Warcraft dataset is adapted from [Differentiation of Blackbox Combinatorial Solvers](https://github.com/martius-lab/blackbox-backprop), while the Pokémon dataset is novel. For a detailed description of the generation process, please refer to the [Neural Weighted A*](TODO) paper.
 
-|Dataset|Image|Costs|Shortest path|Source, Target|Expanded nodes|
+|**Dataset**|**Image**|**Costs**|**Shortest path**|**Source, Target**|**Expanded nodes**|
 |---|:---:|:---:|:---:|:---:|:---:|
 |Warcraft|![](samples/warcraft_map_sample.png)|![](samples/warcraft_cost_sample.png)|![](samples/warcraft_path_sample.png)|![](samples/warcraft_st_sample.png)|![](samples/warcraft_exp_nodes_sample.png)|
 |Pokémon|![](samples/pkmn_map_sample.png)|![](samples/pkmn_cost_sample.png)|![](samples/pkmn_path_sample.png)|![](samples/pkmn_st_sample.png)|![](samples/pkmn_exp_nodes_sample.png)|
@@ -26,9 +26,16 @@ The files are available [here](https://github.com/archettialberto/tilebased_navi
 ```python
 import numpy as np
 
-# Decompress a .npz file
-file_name = 'foo.npz'
-loaded = np.load(file_name)
+def load_npz(path_to_file):
+    loaded = np.load(path_to_file)
+    return {
+        "maps": loaded["maps"],
+        "costs": loaded["costs"],
+        "targets": loaded["targets"],
+        "sources": loaded["sources"],
+        "paths": loaded["paths"],
+        "exp_nodes": loaded["exp_nodes"],
+    }
 ```
 
 ## Content 
@@ -40,6 +47,8 @@ Each dataset is split in train, test, and validation subsets. Each data sample c
 * a list of source-target tiles on each image,
 * the shortest paths connecting sources and targets,
 * the nodes expanded during the A* search.
+
+Here are the summary statistics of the Warcraft and Pokémon datasets:
 
 ||**Warcraft**|**Pokémon**|
 |---|---|---|
@@ -56,11 +65,13 @@ Each dataset is split in train, test, and validation subsets. Each data sample c
 |Path length (avg, std)|11.2, 2.45|16.71, 3.07|
 |Path costs (avg, std)|22.66, 12.83|38.94, 30.09|
 
-Each `.npz` file contains a Numpy array with the following shapes:
+Each `.npz` file contains several Numpy arrays with the following shapes:
 
-* `maps.npz`: (map_idx, image_height, image_width, color_channels)
-* `costs.npz`: (map_idx, grid_rows, grid_columns)
-* `targets.npz`: (map_idx, target_idx, target_coordinates)
-* `samples.npz`: (map_idx, target_idx, source_idx, source_coordinates)
-* `paths.npz`: (map_idx, target_idx, source_idx, grid_rows, grid_columns)
-* `exp_nodes.npz`: (map_idx, target_idx, source_idx, grid_rows, grid_columns)
+|**Array name**|**Shape**|
+|---|---|
+|`maps`|(map_idx, image_height, image_width, color_channels)|
+|`costs`|(map_idx, grid_rows, grid_columns)|
+|`targets`|(map_idx, target_idx, target_coordinates)|
+|`sources`|(map_idx, target_idx, source_idx, source_coordinates)|
+|`paths`|(map_idx, target_idx, source_idx, grid_rows, grid_columns)|
+|`exp_nodes`|(map_idx, target_idx, source_idx, grid_rows, grid_columns)|

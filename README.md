@@ -1,6 +1,6 @@
 # Tilebased navigation datasets
 
-This repository contains two planar navigation datasets on tile-based videogame images, the Warcraft dataset and the Pokémon dataset, used for training [Neural Weighted A*](TODO).
+This repository contains two planar navigation datasets on tile-based videogame images, the Warcraft dataset and the Pokémon dataset, used for training [Neural Weighted A*](https://arxiv.org/abs/2105.01480).
 
 ## Table of contents
 
@@ -12,7 +12,7 @@ This repository contains two planar navigation datasets on tile-based videogame 
 
 These dataset provide tile-based images of navigation areas paired with shortest paths connecting randomly-selected tiles. They are used in data-based planning settings to infer graph labeling from path examples. Each image is composed of a square grid of tiles, each mapped to a real-valued cost. Shortest paths are evaluated considering the 8-GridWorld setting, where each node is connected to only the neighboring nodes in the grid, including the diagonals. 
 
-The Warcraft dataset is adapted from [Differentiation of Blackbox Combinatorial Solvers](https://github.com/martius-lab/blackbox-backprop), while the Pokémon dataset is novel. For a detailed description of the generation process, please refer to the [Neural Weighted A*](TODO) paper.
+The Warcraft dataset is adapted from [Differentiation of Blackbox Combinatorial Solvers](https://github.com/martius-lab/blackbox-backprop), while the Pokémon dataset is novel. For a detailed description of the generation process, please refer to the [Neural Weighted A*](https://arxiv.org/abs/2105.01480) paper.
 
 |**Dataset**|**Image**|**Costs**|**Shortest path**|**Source, Target**|**Expanded nodes**|
 |---|:---:|:---:|:---:|:---:|:---:|
